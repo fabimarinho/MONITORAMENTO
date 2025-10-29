@@ -1,5 +1,0 @@
-requests
-python-dotenv
-playwright
-apscheduler
-fpdf2
