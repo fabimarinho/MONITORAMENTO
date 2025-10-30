@@ -11,6 +11,8 @@ class Settings:
     PORTAL_URL: str
     SUCCESS_ORG_LABEL: str = "PREFEITURA MUNICIPAL DE JAPERI"
     CHECK_INTERVAL_HOURS: int = 3
+    # Novo: permitir configurar o intervalo em minutos (ex: 5)
+    CHECK_INTERVAL_MINUTES: int = 5
     SLACK_WEBHOOK: Optional[str] = None
     TIMEZONE: str = "America/Sao_Paulo"
     DAILY_REPORT_HOUR: int = 23
@@ -42,6 +44,7 @@ def load_settings() -> Settings:
         PORTAL_URL=os.getenv("PORTAL_URL", "").strip(),
         SUCCESS_ORG_LABEL=os.getenv("SUCCESS_ORG_LABEL", "PREFEITURA MUNICIPAL DE JAPERI"),
         CHECK_INTERVAL_HOURS=int(os.getenv("CHECK_INTERVAL_HOURS", "3")),
+        CHECK_INTERVAL_MINUTES=int(os.getenv("CHECK_INTERVAL_MINUTES", "5")),
         SLACK_WEBHOOK=os.getenv("SLACK_WEBHOOK", "").strip() or None,
         TIMEZONE=os.getenv("TIMEZONE", "America/Sao_Paulo"),
         DAILY_REPORT_HOUR=int(os.getenv("DAILY_REPORT_HOUR", "23"))

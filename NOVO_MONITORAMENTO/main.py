@@ -42,18 +42,20 @@ def main():
             send_slack(settings, f"Erro ao gerar relatório mensal: {e}\n{traceback.format_exc()}")
     
     # Agenda jobs
+    # Executa checagem periódica em minutos (configurável via CHECK_INTERVAL_MINUTES)
     scheduler.add_job(
-        job_check, 
-        'interval', 
-        hours=settings.CHECK_INTERVAL_HOURS,
+        job_check,
+        'interval',
+        minutes=settings.CHECK_INTERVAL_MINUTES,
         next_run_time=datetime.now(settings.tz)
     )
-    
+
+    # Gera relatório diário em PDF a cada 24 horas
     scheduler.add_job(
         job_daily_report,
-        'cron',
-        hour=settings.DAILY_REPORT_HOUR,
-        minute=5
+        'interval',
+        days=1,
+        next_run_time=datetime.now(settings.tz) + timedelta(seconds=10)
     )
     
     scheduler.add_job(
